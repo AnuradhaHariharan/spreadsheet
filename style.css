@@ -103,6 +103,10 @@
     align-items: center;
     gap: 5px;
     padding: .8rem .5rem;
+
+}
+.share-container :hover {
+    background: #9ed1fe;  
 }
 .share-lock {
     display: flex;
@@ -242,6 +246,7 @@
 
 .dropdown-menu {
     display: none;
+    z-index: 1;
     position: absolute;
     top: 100%;
     left: 0;

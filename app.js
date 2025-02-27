@@ -948,8 +948,48 @@ document.addEventListener("DOMContentLoaded", () => {
     }
  })
   
+ const inputTextPara = document.querySelector(".input");
 
+ // Throttle delay 
+ const THROTTLE_DELAY = 500;
+ 
+ let typingTimer; // Variable to store the timeout ID
+ 
+ textInput.addEventListener("input", (event) => {
+     let newContent = event.target.innerText.trim();
+   clearTimeout(typingTimer);
+ 
+   // Set a new timer to update the content after the specified delay
+   typingTimer = setTimeout(() => {
+     // Get the new content inside the div
+     const newContent = event.target.innerText.trim();
+ 
+     // Update the content in the target element
+     inputTextPara.textContent = newContent;
+   }, THROTTLE_DELAY);
+ });
+ 
+let shareArrow =document.querySelector(".share-arrow");
+let shareDropDown= document.querySelector(".share-dropdown");
 
+shareArrow.addEventListener("click",(event)=>{
+    if(shareDropDown.style.display==='none'){
+   shareDropDown.style.display='block'
+    }else {
+         shareDropDown.style.display='none'
+    }
+})
+
+let video= document.querySelector("#videoDropdownBtn")
+let videoDropDown=document.querySelector("#dropdownMenu")
+
+video.addEventListener("click",()=>{
+    if (videoDropDown.style.display === 'none' || videoDropDown.style.display === '') {
+        videoDropDown.style.display = 'block';
+    } else {
+        videoDropDown.style.display = 'none';
+    }
+})
 
 });
 
