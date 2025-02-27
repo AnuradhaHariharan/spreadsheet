@@ -303,7 +303,7 @@
 }
 
 .gemini-container:hover {
-    animation: morphShape 1s infinite alternate ease-in-out, gradientShift 2.5s linear forwards;
+    animation: morphShape 1s infinite alternate ease-in-out, gradientShift 3s linear forwards;
 }
 
 .gemini-container:hover .gemini-color {
@@ -341,12 +341,26 @@
 /* Background Gradient Animation */
 @keyframes gradientShift {
     0% {
-        background: #0000FF; /* Start with solid blue */
+        background: rgb(173, 216, 230); /* Light Blue */
+    }
+    20% {
+        background: rgb(100, 149, 237); /* Cornflower Blue */
+    }
+    40% {
+        background: rgb(30, 144, 255); /* Dodger Blue */
+    }
+    60% {
+        background: rgb(0, 110, 255); /* Bright Blue */
+    }
+    80% {
+        background: linear-gradient(45deg, #4A00E0, #6A00E0); /* Deep Purple */
     }
     100% {
-        background: linear-gradient(45deg, #4A00E0, #8E2DE2); /* Transition to blue-purple gradient */
+        background: linear-gradient(45deg, #4A00E0, #8E2DE2); /* Darker Blue-Purple Gradient */
     }
 }
+
+
 .font-preview {
     font-family: Arial, sans-serif;
     font-size: 16px;
@@ -452,3 +466,41 @@
 .cell-input {
     display: flex;
 }
+#font-selector {
+    font-family: inherit; /* Ensures dropdown text uses the selected font */
+  }
+  
+  #font-selector option {
+    font-size: 16px; /* Adjust size as needed */
+  }
+  .dropdown-menu-font{
+    display: none;
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    overflow: auto;
+    font-size: 1rem;
+    height: 22rem;
+    width: 14rem;
+    text-align: center;
+
+    p{
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+        padding: .6rem 0;
+    }
+     p:hover{
+        background-color: rgb(212, 212, 212);
+     }
+  }
+  .dropdown-menu-font.display{
+     display: block;
+  }
+  .input {
+    font-size: .8rem;
+  }

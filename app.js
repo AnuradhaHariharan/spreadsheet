@@ -861,7 +861,8 @@
             }
             // change modes
             const expr = textInput.innerHTML + key;
-            console.log('expr', expr)
+            //displayInput.textContent=expr;
+            console.log(expr)
             if (isFormula(expr)) {
                 findCellNamesAndHighlight(expr)
                 DrawFunctions.drawGrid()
@@ -879,47 +880,67 @@
         }
         console.log("Key pressed: ", key)
     })
-    document.getElementById("spreadsheet-container").addEventListener("scroll", function() {
-        DrawFunctions.drawGrid();
-    });
-    
 
-    document.getElementById("videoDropdownBtn").addEventListener("click", function () {
-        const menu = document.getElementById("dropdownMenu");
-        menu.style.display = menu.style.display === "block" ? "none" : "block";
+
+})();
+
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOM loaded");
+
+    let dropDown = document.querySelector(".custom-dropdown");
+    let dropdownMenu = document.querySelector(".dropdown-menu-font");
+
+    dropDown.addEventListener("click", (event) => {
+        dropdownMenu.classList.add("display");
+        event.stopPropagation(); // Prevents this click from triggering the window event
     });
-    
-    // Close dropdown when clicking outside
-    document.addEventListener("click", function (event) {
-        const menu = document.getElementById("dropdownMenu");
-        const button = document.getElementById("videoDropdownBtn");
-    
-        if (!button.contains(event.target) && !menu.contains(event.target)) {
-            menu.style.display = "none";
+
+    // Click outside handler
+    document.addEventListener("click", (event) => {
+        if (!dropDown.contains(event.target) && !dropdownMenu.contains(event.target)) {
+            dropdownMenu.classList.remove("display");
+            console.log("Clicked outside, dropdown closed");
         }
     });
-    const counter = document.getElementById("counter");
-const increaseBtn = document.getElementById("increase");
-const decreaseBtn = document.getElementById("decrease");
+     const decreaseButton = document.getElementById('decrease');
+  const increaseButton = document.getElementById('increase');
+  const counterElement = document.getElementById('counter');
 
-increaseBtn.addEventListener("click", () => {
-    counter.textContent = parseInt(counter.textContent) + 1;
-});
+  // Initialize the counter value
+  let counter = 0;
 
-decreaseBtn.addEventListener("click", () => {
-    let value = parseInt(counter.textContent);
-    if (value > 0) { // Prevents going below zero
-        counter.textContent = value - 1;
+  // Function to update the counter value
+  function updateCounter() {
+    counterElement.textContent = counter;
+  }
+
+  // Event listener for the decrease button
+  decreaseButton.addEventListener('click', () => {
+    if (counter > 0) {
+      counter--; // Decrement the counter if greater than 0
+      updateCounter();
     }
-});
-document.getElementById("toggle-btn").addEventListener("click", function () {
-    const upperLayer = document.querySelector(".upper-layer");
-    if (upperLayer.style.display === "none") {
-        upperLayer.style.display = "block"; // Show it again
-    } else {
-        upperLayer.style.display = "none"; // Hide it
+  });
+
+  // Event listener for the increase button
+  increaseButton.addEventListener('click', () => {
+    counter++; // Increment the counter
+    updateCounter();
+  });
+  textInput = document.getElementById("textInput");
+
+  dropdownMenu.addEventListener("click",(event)=>{
+     console.log(event.target.textContent)
+    if(event.target.matches(".font-option")){
+        let font=event.target.textContent;
+        textInput.style.fontFamily=font
     }
+
+  })
+
+  
+
+
+
 });
 
-    
-})()
