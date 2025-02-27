@@ -54,7 +54,8 @@
 
     let spreadsheetData = create2DArray(rowCount, colCount, '');
     let cellProperties = create2DArray(rowCount, colCount, {
-        textAlign: "left"
+        textAlign: "left",
+        overflow:"hidden"
     })
 
     let formulaInCell = {} // 'A2': '=A1+B1'
@@ -435,14 +436,61 @@
         return result;
     }
 
-    const funcList = ["SUM", "AVERAGE", "MIN", "MAX"];
+
+    function run_count_func(paramString, outputCellName) {
+        const cellRange = paramString;
+        const cellNameRegex = /[A-Z]+\d+/g;
+        const cellNames = cellRange.match(cellNameRegex);
+        if (cellNames.length != 2) return "#NaN";
+    
+        let count = 0;
+        const c1 = convertCellNameToRowCol(cellNames[0]);
+        const c2 = convertCellNameToRowCol(cellNames[1]);
+    
+        for (let r = Math.min(c1.row, c2.row); r <= Math.max(c1.row, c2.row); r++) {
+            for (let c = Math.min(c1.col, c2.col); c <= Math.max(c1.col, c2.col); c++) {
+                const v = spreadsheetData[r][c];
+                if (isFinite(v)) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    
+    function run_counta_func(paramString, outputCellName) {
+        const cellRange = paramString;
+        const cellNameRegex = /[A-Z]+\d+/g;
+        const cellNames = cellRange.match(cellNameRegex);
+        if (cellNames.length != 2) return "#NaN";
+    
+        let count = 0;
+        const c1 = convertCellNameToRowCol(cellNames[0]);
+        const c2 = convertCellNameToRowCol(cellNames[1]);
+    
+        for (let r = Math.min(c1.row, c2.row); r <= Math.max(c1.row, c2.row); r++) {
+            for (let c = Math.min(c1.col, c2.col); c <= Math.max(c1.col, c2.col); c++) {
+                const v = spreadsheetData[r][c];
+                if (v !== undefined && v !== null && v !== '') {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    
+   
+    const funcList = ["SUM", "AVERAGE", "MIN", "MAX", "COUNT", "COUNTA"];
 
     const funcMap = {
         "SUM": run_sum_func,
         "AVERAGE": run_avg_func,
         "MIN": run_min_func,
-        "MAX": run_max_func
+        "MAX": run_max_func,
+        "COUNT": run_count_func,
+        "COUNTA": run_counta_func,
     }
+    
 
     function isFunctionPresent(expr) {
         
