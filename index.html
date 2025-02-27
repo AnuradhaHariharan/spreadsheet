@@ -1,46 +1,246 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Spreadsheets</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            padding: 0;
-            margin: 0;
-        }
-
-        #spreadsheet {
-            border: 1px solid black;
-            width: 1024px;
-            height: 1024px;
-        }
-
-        #selectedCellBorder,
-        #selectedRange,
-        #selectedCellFormula,
-        #textInput {
-            position: absolute;
-        }
-
-        #textInput {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="./style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.2.0/math.js"></script>
-</head>
+    <!-- Include Google Material Icons -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    />
+  </head>
 
-<body>
-    <canvas id="spreadsheet"></canvas>
-    <div id="selectedCellBorder"></div>
-    <div id="selectedCellFormula"></div>
-    <div id="selectedRange"></div>
-    <div contenteditable="true" id="textInput"></div>
-    <script src="app.js"></script>
+  <body>
+    <header class="navbar">
+      <div class="upper-layer">
+        <div class="navbar-left">
+          <div class="logo">
+            <img src="./logo.png" alt="" class="logo-img" />
+           
+          </div>
+      <div class="left-second-container">
+        <div class="title-container">
+          <span class="title">Untitled Spreadsheet</span>
+          <p class="material-symbols-outlined upperlayer-icons">
+            star
+            </p>
+            <span class="material-symbols-outlined upperlayer-icons">
+                drive_file_move
+                </span>
+                <span class="material-symbols-outlined upperlayer-icons">
+                    cloud_done
+                    </span>
+        </div>
+          <div class="navbar-menu">
+            <span>File</span>
+            <span>Edit</span>
+            <span>View</span>
+            <span>Insert</span>
+            <span>Format</span>
+            <span>Data</span>
+            <span>Tools</span>
+            <span>Extensions</span>
+            <span>Help</span>
+          </div>
+        </div>
+        </div>
 
-</body>
+        <div class="navbar-right">
+          <span class="material-symbols-outlined upperlayer-icons"> history </span>
+          <span class="material-symbols-outlined upperlayer-icons"> speaker_notes </span>
+          <div class="video-dropdown">
+            <button class="icon-btn" id="videoDropdownBtn">
+              <span class="material-symbols-outlined upperlayer-icons"> videocam </span>
+              <span class="material-icons">arrow_drop_down</span>
+            </button>
+            <div class="dropdown-menu" id="dropdownMenu">
+              <button class="dropdown-item">Join a Meeting</button>
+              <button class="dropdown-item">Start a Meeting</button>
+            </div>
+          </div>
 
+          <div class="share-container">
+            <div class="share-btn">
+              <div class="share-lock">
+                <span class="material-icons lock-icon">lock_outline</span>
+                <p>Share</p>
+              </div>
+              <span class="material-icons share-arrow">arrow_drop_down</span>
+            </div>
+            <div class="share-dropdown">
+              <button class="dropdown-item">📧 Share via Email</button>
+              <button class="dropdown-item">🔗 Copy Link</button>
+              <button class="dropdown-item">➕ More Options</button>
+            </div>
+          </div>
+          <div class="gemini-container">
+            <div class="black-gemini">
+              <img src="./gemini.svg" class="gemini" alt="" />
+            </div>
+            <div>
+              <img src="./gemini.svg" class="gemini-color" alt="" />
+            </div>
+          </div>
+
+          <img src="./userimg.png" class="user-img" alt="" />
+        </div>
+      </div>
+      <div class="second-layer">
+        <div class="toolbar-left">
+          <button class="icon-btn">
+            <span class="material-icons">search</span>
+          </button>
+          <span class="material-symbols-outlined">
+            undo
+            </span>
+            <span class="material-symbols-outlined">
+                redo
+                </span>
+          <span class="material-symbols-outlined">
+            print
+            </span>
+          <button class="icon-btn">
+            <span class="material-icons">format_paint</span>
+          </button>
+          <p>100%</p>
+          <span class="material-icons">arrow_drop_down</span>
+        </div>
+
+        <div class="toolbar-second">
+          <button class="icon-btn">
+            <span class="material-icons">attach_money</span>
+            <!-- Dollar ($) -->
+          </button>
+          <button class="icon-btn">
+            <span class="material-icons">percent</span>
+            <!-- Percentage (%) -->
+          </button>
+          <div class="decimal-arrow">
+            <span class="zero">.0</span>
+            <span class="material-icons arrow">arrow_back</span>
+            <!-- Left Arrow (←) -->
+          </div>
+          <div class="decimal-arrow">
+            <span class="zero">.00</span>
+            <span class="material-icons arrow">arrow_forward</span>
+            <!-- Right Arrow (→) -->
+          </div>
+          <span class="one-two-three">123</span>
+        </div>
+        <div class="toolbar-third">
+          <span class="font-preview">Defaul...</span>
+          <div class="custom-dropdown">
+            <span class="material-icons">arrow_drop_down</span>
+            <select id="font-selector">
+              <option value="Arial, sans-serif" style="font-family: Arial">
+                Arial
+              </option>
+              <option
+                value="'Times New Roman', serif"
+                style="font-family: 'Times New Roman'"
+              >
+                Times New Roman
+              </option>
+              <option
+                value="'Courier New', monospace"
+                style="font-family: 'Courier New'"
+              >
+                Courier New
+              </option>
+              <option value="'Georgia', serif" style="font-family: Georgia">
+                Georgia
+              </option>
+              <option
+                value="'Verdana', sans-serif"
+                style="font-family: Verdana"
+              >
+                Verdana
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="toolbar-third">
+          <button id="decrease" class="font-size">−</button>
+          <span id="counter">0</span>
+          <button id="increase" class="font-size">+</button>
+        </div>
+
+        <div class="toolbar-third">
+          <button class="icon-btn">
+            <span class="material-icons">format_bold</span>
+          </button>
+          <button class="icon-btn">
+            <span class="material-icons">format_italic</span>
+          </button>
+          <p class="strikethrough">s</p>
+          <button class="icon-btn">
+            <span class="material-icons">format_color_text</span>
+          </button>
+        </div>
+
+        <div class="toolbar-third">
+          <button class="icon-btn">
+            <span class="material-icons">format_color_fill</span>
+          </button>
+          <span class="material-symbols-outlined"> grid_view </span>
+          <span class="material-symbols-outlined grey"> cell_merge </span>
+          <span class="material-symbols-outlined grey"> arrow_drop_down </span>
+        </div>
+
+        <div class="toolbar-right">
+          <div class="flex">
+            <button class="icon-btn">
+              <span class="material-icons">format_align_right</span>
+            </button>
+            <span class="material-symbols-outlined"> arrow_drop_down </span>
+          </div>
+          <div class="flex">
+            <span class="material-symbols-outlined"> download </span>
+            <span class="material-symbols-outlined"> arrow_drop_down </span>
+          </div>
+          <div class="flex">
+            <span class="material-symbols-outlined"> format_text_wrap </span>
+            <span class="material-symbols-outlined"> arrow_drop_down </span>
+          </div>
+          <div class="flex">
+            <span class="material-symbols-outlined"> text_rotation_none </span>
+            <span class="material-symbols-outlined"> arrow_drop_down </span>
+          </div>
+        </div>
+        <div class="toolbar-right">
+          <span class="material-symbols-outlined"> link </span>
+          <span class="material-symbols-outlined"> add_comment </span>
+          <span class="material-symbols-outlined">insert_chart</span>
+          <span class="material-symbols-outlined">filter_alt</span>
+          <div class="flex">
+            <span class="material-symbols-outlined"> filter_none </span>
+            <span class="material-symbols-outlined"> arrow_drop_down </span>
+          </div>
+          <span class="material-symbols-outlined"> functions </span>
+        </div>
+        <div class="second-layer-closetab">
+        <span class="material-symbols-outlined">
+            keyboard_arrow_up
+            </span>
+      </div>
+      
+    </header>
+
+    <div class="spreadsheet-container">
+      <canvas id="spreadsheet"></canvas>
+      <div id="selectedCellBorder"></div>
+      <div id="selectedCellFormula"></div>
+      <div id="selectedRange"></div>
+      <div contenteditable="true" id="textInput"></div>
+      <script src="app.js"></script>
+    </div>
+  </body>
 </html>

@@ -157,7 +157,7 @@
             borderDiv.style.top = `${pos.y + 1}px`;
             borderDiv.style.width = `${colWidths[selectedCell.col] - 1}px`;
             borderDiv.style.height = `${rowHeights[selectedCell.row] - 1}px`;
-            borderDiv.style.border = "3px solid blue";
+            borderDiv.style.border = "1.5px solid blue";
         }
 
         function drawSelectedCellRange() {
@@ -220,7 +220,7 @@
         canvas = document.getElementById("spreadsheet");
         textInput = document.getElementById("textInput");
         ctx = canvas.getContext("2d");
-        const canvasWidth = 1200;
+        const canvasWidth = 1500;
         const canvasHeight = 1700;
         const ratio = window.devicePixelRatio;
         canvas.width = canvasWidth * ratio;
@@ -866,10 +866,47 @@
         }
         console.log("Key pressed: ", key)
     })
-})()
+    document.getElementById("spreadsheet-container").addEventListener("scroll", function() {
+        DrawFunctions.drawGrid();
+    });
+    
 
-/**
- * mode = NORMAL, TYPING, SEARCHING
- * textInput.innerHTML.slice(-1) = '='/'+'/.... > SEARCHING
- * press enter or move out of the cell > NORMAL
- */
+    document.getElementById("videoDropdownBtn").addEventListener("click", function () {
+        const menu = document.getElementById("dropdownMenu");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener("click", function (event) {
+        const menu = document.getElementById("dropdownMenu");
+        const button = document.getElementById("videoDropdownBtn");
+    
+        if (!button.contains(event.target) && !menu.contains(event.target)) {
+            menu.style.display = "none";
+        }
+    });
+    const counter = document.getElementById("counter");
+const increaseBtn = document.getElementById("increase");
+const decreaseBtn = document.getElementById("decrease");
+
+increaseBtn.addEventListener("click", () => {
+    counter.textContent = parseInt(counter.textContent) + 1;
+});
+
+decreaseBtn.addEventListener("click", () => {
+    let value = parseInt(counter.textContent);
+    if (value > 0) { // Prevents going below zero
+        counter.textContent = value - 1;
+    }
+});
+document.getElementById("toggle-btn").addEventListener("click", function () {
+    const upperLayer = document.querySelector(".upper-layer");
+    if (upperLayer.style.display === "none") {
+        upperLayer.style.display = "block"; // Show it again
+    } else {
+        upperLayer.style.display = "none"; // Hide it
+    }
+});
+
+    
+})()
