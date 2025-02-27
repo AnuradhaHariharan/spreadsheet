@@ -988,13 +988,23 @@ document.addEventListener("DOMContentLoaded", () => {
   })
  let boldText= document.querySelector(".format-text")
  
- boldText.addEventListener("click",(event)=>{
-    if(event.target.matches(".bold")){
-       textInput.style.fontWeight='bold'
-    }else if(event.target.matches(".italic")){
-         textInput.style.fontStyle = 'italic';
+ boldText.addEventListener("click", (event) => {
+    if (event.target.matches(".bold")) {
+      // Toggle bold
+      if (textInput.style.fontWeight === 'bold') {
+        textInput.style.fontWeight = 'normal';
+      } else {
+        textInput.style.fontWeight = 'bold';
+      }
+    } else if (event.target.matches(".italic")) {
+      // Toggle italic
+      if (textInput.style.fontStyle === 'italic') {
+        textInput.style.fontStyle = 'normal';
+      } else {
+        textInput.style.fontStyle = 'italic';
+      }
     }
- })
+  });
   
  const inputTextPara = document.querySelector(".input");
 
