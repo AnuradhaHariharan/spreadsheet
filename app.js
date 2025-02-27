@@ -229,39 +229,52 @@
         canvas.style.height = canvasHeight + "px";
 
         canvas.addEventListener('click', function(event) {
-            const rect = canvas.getBoundingClientRect()
+            const rect = canvas.getBoundingClientRect();
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
-            let totalHeightChecked  = 0
-            let r = 0
+        
+            let totalHeightChecked = 0, r = 0;
             for (let h of rowHeights) {
-                totalHeightChecked += h
-                if (y < totalHeightChecked) {
-                    break
-                }
-                r += 1
+                totalHeightChecked += h;
+                if (y < totalHeightChecked) break;
+                r++;
             }
-
-            let totalWidthChecked  = 0
-            let c = 0
+        
+            let totalWidthChecked = 0, c = 0;
             for (let w of colWidths) {
-                totalWidthChecked += w
-                if (x < totalWidthChecked) {
-                    break
-                }
-                c += 1
+                totalWidthChecked += w;
+                if (x < totalWidthChecked) break;
+                c++;
             }
-            console.log(r, c)
-
-            selectedCell = {col: c, row: r}
+        
+            console.log(r, c);
+        
+            selectedCell = { col: c, row: r };
             selectedCellRange = {
                 startRow: r,
                 startCol: c,
                 endRow: r,
                 endCol: c
+            };
+        
+            // Convert column index to letter (A, B, C...)
+            const columnLetter = convertToColumnLetter(c);
+            document.querySelector(".cell-input input").value = `${columnLetter}${r}`;
+           console.log(columnLetter)
+            DrawFunctions.drawGrid();
+        });
+        
+        // Helper function to convert column index to letters
+        function convertToColumnLetter(col) {
+            let letter = "";
+            while (col > 0) {
+                col--; // Fix: Adjust before converting
+                letter = String.fromCharCode((col % 26) + 65) + letter;
+                col = Math.floor(col / 26);
             }
-            DrawFunctions.drawGrid()
-        })
+            return letter;
+        }
+        
         
         ctx.scale(ratio, ratio);
         

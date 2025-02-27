@@ -429,3 +429,26 @@
     flex-direction: row;
     gap: .5rem;
 }
+.third-layer {
+    display: flex;
+    gap: 1rem;
+}
+.cell-input input {
+    width: 50px; /* Adjust width */ 
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+    background-color: #f9fcff;
+}
+
+.cell-input input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+.material-symbols-outlined {
+    cursor: pointer;
+}
+.cell-input {
+    display: flex;
+}
