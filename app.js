@@ -928,6 +928,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCounter();
   });
   textInput = document.getElementById("textInput");
+  console.log(textInput)
 
   dropdownMenu.addEventListener("click",(event)=>{
      console.log(event.target.textContent)
@@ -937,7 +938,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
   })
-
+ let boldText= document.querySelector(".format-text")
+ 
+ boldText.addEventListener("click",(event)=>{
+    if(event.target.matches(".bold")){
+       textInput.style.fontWeight='bold'
+    }else if(event.target.matches(".italic")){
+         textInput.style.fontStyle = 'italic';
+    }
+ })
   
 
 
