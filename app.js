@@ -1048,6 +1048,17 @@ video.addEventListener("click",()=>{
         videoDropDown.style.display = 'none';
     }
 })
+let secondLayerCloseTab =document.querySelector(".second-layer-closetab")
+let uppperLayer=document.querySelector(".upper-layer")
+
+secondLayerCloseTab.addEventListener("click",()=>{
+    if(uppperLayer.style.display==='none'){
+        uppperLayer.style.display='flex';
+    }else{
+        uppperLayer.style.display='none';
+    }
+})
+
 
 });
 
