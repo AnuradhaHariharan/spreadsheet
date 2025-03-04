@@ -12,14 +12,17 @@
     }
 
     function numberToColumnName(num) {
-        let columnName = ''
-        while(num > 0) {
+        let columnName = '';
+        while (num > 0) {
             let remainder = (num - 1) % 26;
             columnName = String.fromCharCode(65 + remainder) + columnName;
-            num = Math.floor((num-1)/26); // 33 -> 7 -> C
+            num = Math.floor((num - 1) / 26);
         }
+        console.log(columnName)
         return columnName;
+       
     }
+    
 
     var textInput;
 
@@ -224,6 +227,7 @@
         const canvasWidth = 1500;
         const canvasHeight = 1700;
         const ratio = window.devicePixelRatio;
+        console.log(ratio)
         canvas.width = canvasWidth * ratio;
         canvas.height = canvasHeight * ratio;
         canvas.style.width = canvasWidth + "px";
@@ -1058,6 +1062,12 @@ secondLayerCloseTab.addEventListener("click",()=>{
         uppperLayer.style.display='none';
     }
 })
+
+
+
+
+
+
 
 
 });
